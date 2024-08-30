@@ -1,1 +1,1 @@
-# shopping-cart-backend
+# Shopping Cart Backend Java Project
