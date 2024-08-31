@@ -1,1 +1,1 @@
-# Shopping Cart Backend Java Project
+# Eshop Backend Spring Boot Project
