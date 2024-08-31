@@ -1,6 +1,7 @@
 package com.kk.eshop.service.product;
 
 import com.kk.eshop.dtos.ProductDTO;
+import com.kk.eshop.dtos.ProductUpdateDTO;
 import com.kk.eshop.exceptions.ProductNotFoundException;
 import com.kk.eshop.model.Category;
 import com.kk.eshop.model.Product;
@@ -84,8 +85,28 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void updateProductById(Product product, Long productId) {
+    public Product updateProductById(ProductUpdateDTO productUpdateDTO, Long productId) {
+        return productRepository.findById(productId)
+                .map(product -> updateProduct(product, productUpdateDTO))
+                .map(productRepository :: save)
+                .orElseThrow(()-> new ProductNotFoundException("Product not found"));
+    }
 
+    private Product updateProduct(Product product, ProductUpdateDTO productUpdateDTO){
+        product.setName(productUpdateDTO.getName());
+        product.setBrand(productUpdateDTO.getBrand());
+        product.setPrice(productUpdateDTO.getPrice());
+        product.setQuantityInInventory(productUpdateDTO.getQuantityInInventory());
+        product.setDescription(productUpdateDTO.getDescription());
+
+        Category category = Optional.ofNullable(categoryRepository.findByName(productUpdateDTO.getCategory().getName()))
+                .orElseGet(() -> {
+                    Category newCategory = new Category(productUpdateDTO.getCategory().getName());
+                    return categoryRepository.save(newCategory);
+                });
+        product.setCategory(category);
+
+        return product;
     }
 
     @Override
