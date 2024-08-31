@@ -1,6 +1,7 @@
 package com.kk.eshop.service.product;
 
 import com.kk.eshop.dtos.ProductDTO;
+import com.kk.eshop.dtos.ProductUpdateDTO;
 import com.kk.eshop.model.Product;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public interface IProductService {
     List<Product> getProductsByName(String name);
     List<Product> getProductsByBrandAndName(String brand, String name);
     void deleteProductById(Long productId);
-    void updateProductById(Product product, Long productId);
+    Product updateProductById(ProductUpdateDTO product, Long productId);
     Long countProductsByBrandAndName(String brand, String name);
 }
