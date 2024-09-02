@@ -2,7 +2,11 @@ package com.kk.eshop.exceptions;
 
 public class CategoryNotFoundException extends RuntimeException {
 
-    public CategoryNotFoundException(String exceptionMessage) {
+    /**
+     * Category not found exception.
+     * @param exceptionMessage exception message
+     */
+    public CategoryNotFoundException(final String exceptionMessage) {
         super(exceptionMessage);
     }
 

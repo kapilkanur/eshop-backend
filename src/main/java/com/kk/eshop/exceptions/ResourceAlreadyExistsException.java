@@ -2,7 +2,11 @@ package com.kk.eshop.exceptions;
 
 public class ResourceAlreadyExistsException extends RuntimeException {
 
-    public ResourceAlreadyExistsException(String message) {
+    /**
+     * Resource already exists exception.
+     * @param message exception message
+     */
+    public ResourceAlreadyExistsException(final String message) {
         super(message);
     }
 
