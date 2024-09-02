@@ -59,4 +59,26 @@ public class CategoryController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse> deleteCategoryById(@PathVariable Long categoryId) {
+        try {
+            iCategoryService.deleteCategoryById(categoryId);
+            return ResponseEntity.ok(new ApiResponse("Found!", null));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
+        try {
+            Category updatedCategory = iCategoryService.updateCategoryById(category, categoryId);
+            return ResponseEntity.ok(new ApiResponse("Update successful!", updatedCategory));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+
+
 }
