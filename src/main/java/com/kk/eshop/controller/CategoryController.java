@@ -6,19 +6,33 @@ import com.kk.eshop.response.ApiResponse;
 import com.kk.eshop.service.product.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("{api.prefix}/categories")
-public class CategoryController {
+public final class CategoryController {
 
     private final ICategoryService iCategoryService;
 
+    /**
+     * Get all categories.
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllCategories() {
         try {
@@ -29,8 +43,13 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Add a category.
+     * @param category category
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addCategory(@RequestBody Category category) {
+    public ResponseEntity<ApiResponse> addCategory(@RequestBody final Category category) {
         try {
             Category theCategory = iCategoryService.addCategory(category);
             return ResponseEntity.ok(new ApiResponse("success", theCategory));
@@ -39,8 +58,13 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Get category by Id.
+     * @param categoryId category id
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getCategoryById(@PathVariable Long categoryId) {
+    public ResponseEntity<ApiResponse> getCategoryById(@PathVariable final Long categoryId) {
         try {
             Category theCategory = iCategoryService.getCategoryById(categoryId);
             return ResponseEntity.ok(new ApiResponse("Found!", theCategory));
@@ -49,8 +73,13 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Get category by name.
+     * @param name category name
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @GetMapping("/{name}")
-    public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String name) {
+    public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable final String name) {
         try {
             Category theCategory = iCategoryService.getCategoryByName(name);
             return ResponseEntity.ok(new ApiResponse("Found!", theCategory));
@@ -59,8 +88,13 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Delete category by Id.
+     * @param categoryId category id
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteCategoryById(@PathVariable Long categoryId) {
+    public ResponseEntity<ApiResponse> deleteCategoryById(@PathVariable final Long categoryId) {
         try {
             iCategoryService.deleteCategoryById(categoryId);
             return ResponseEntity.ok(new ApiResponse("Found!", null));
@@ -69,8 +103,14 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Update category.
+     * @param categoryId category id
+     * @param category category
+     * @return {@link ResponseEntity<ApiResponse>}
+     */
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable final Long categoryId, @RequestBody final Category category) {
         try {
             Category updatedCategory = iCategoryService.updateCategoryById(category, categoryId);
             return ResponseEntity.ok(new ApiResponse("Update successful!", updatedCategory));
