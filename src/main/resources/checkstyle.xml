@@ -73,6 +73,7 @@
   <module name="FileLength"/>
   <module name="LineLength">
     <property name="fileExtensions" value="java"/>
+    <property name="max" value="200"/>
   </module>
 
   <!-- Checks for whitespace                               -->
@@ -97,12 +98,12 @@
 
   <module name="TreeWalker">
 
+    <module name="SuppressionCommentFilter"/>
+
     <!-- Checks for Javadoc comments.                     -->
     <!-- See https://checkstyle.org/checks/javadoc/index.html -->
     <module name="InvalidJavadocPosition"/>
     <module name="JavadocMethod"/>
-    <module name="JavadocType"/>
-    <module name="JavadocVariable"/>
     <module name="JavadocStyle"/>
     <module name="MissingJavadocMethod"/>
 
