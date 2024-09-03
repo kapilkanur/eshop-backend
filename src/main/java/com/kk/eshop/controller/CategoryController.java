@@ -3,7 +3,7 @@ package com.kk.eshop.controller;
 import com.kk.eshop.exceptions.ResourceNotFoundException;
 import com.kk.eshop.model.Category;
 import com.kk.eshop.response.ApiResponse;
-import com.kk.eshop.service.product.ICategoryService;
+import com.kk.eshop.service.category.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

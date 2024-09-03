@@ -15,13 +15,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService implements IProductService {
+public final class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Product addProduct(ProductDTO productDTO) {
+    public Product addProduct(final ProductDTO productDTO) {
         Category category = Optional.ofNullable(categoryRepository.findByName(productDTO.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(productDTO.getCategory().getName());
@@ -31,7 +31,7 @@ public class ProductService implements IProductService {
         return productRepository.save(createProduct(productDTO, category));
     }
 
-    private Product createProduct(ProductDTO productDTO, Category category) {
+    private Product createProduct(final ProductDTO productDTO, final Category category) {
         return new Product(
                 productDTO.getName(),
                 productDTO.getBrand(),
@@ -43,9 +43,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product getProductById(Long productId) {
+    public Product getProductById(final Long productId) {
         return productRepository.findById(productId)
-                .orElseThrow(()-> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 
     @Override
@@ -54,45 +54,47 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(String category) {
+    public List<Product> getProductsByCategory(final String category) {
         return productRepository.findByCategoryName(category);
     }
 
     @Override
-    public List<Product> getProductsByBrandName(String brand) {
+    public List<Product> getProductsByBrandName(final String brand) {
         return productRepository.findByBrandName(brand);
     }
 
     @Override
-    public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
+    public List<Product> getProductsByCategoryAndBrand(final String category, final String brand) {
         return productRepository.findByCategoryNameAndBrandName(category, brand);
     }
 
     @Override
-    public List<Product> getProductsByName(String name) {
+    public List<Product> getProductsByName(final String name) {
         return productRepository.findByName(name);
     }
 
     @Override
-    public List<Product> getProductsByBrandAndName(String brand, String name) {
+    public List<Product> getProductsByBrandAndName(final String brand, final String name) {
         return productRepository.findByBrandAndName(brand, name);
     }
 
     @Override
-    public void deleteProductById(Long productId) {
+    public void deleteProductById(final Long productId) {
         productRepository.findById(productId)
-                .ifPresentOrElse(productRepository::delete, () -> {throw new ProductNotFoundException("Product not found");});
+                .ifPresentOrElse(productRepository::delete, () -> {
+                    throw new ProductNotFoundException("Product not found");
+                });
     }
 
     @Override
-    public Product updateProductById(ProductUpdateDTO productUpdateDTO, Long productId) {
+    public Product updateProductById(final ProductUpdateDTO productUpdateDTO, final Long productId) {
         return productRepository.findById(productId)
                 .map(product -> updateProduct(product, productUpdateDTO))
                 .map(productRepository :: save)
-                .orElseThrow(()-> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 
-    private Product updateProduct(Product product, ProductUpdateDTO productUpdateDTO){
+    private Product updateProduct(final Product product, final ProductUpdateDTO productUpdateDTO) {
         product.setName(productUpdateDTO.getName());
         product.setBrand(productUpdateDTO.getBrand());
         product.setPrice(productUpdateDTO.getPrice());
@@ -110,7 +112,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Long countProductsByBrandAndName(String brand, String name) {
+    public Long countProductsByBrandAndName(final String brand, final String name) {
         return productRepository.countByBrandAndName(brand, name);
     }
 }

@@ -1,7 +1,13 @@
 package com.kk.eshop.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +37,20 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
-    public Product(String name, String brand, BigDecimal price, int quantityInInventory, String description, Category category) {
+    /**
+     * Product constructor.
+     * @param productName product name
+     * @param productBrand product brand
+     * @param productPrice product price
+     * @param productQuantityInInventory product quantity in inventory
+     * @param productDescription product description
+     * @param productCategory product category
+     */
+    public Product(final String productName,
+                   final String productBrand,
+                   final BigDecimal productPrice,
+                   final int productQuantityInInventory,
+                   final String productDescription,
+                   final Category productCategory) {
     }
 }

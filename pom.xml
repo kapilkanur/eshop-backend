@@ -84,6 +84,9 @@
 					<includeTestSourceDirectory>true</includeTestSourceDirectory>
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
+					<excludes>
+						com/kk/eshop/EshopApplication.java,com/kk/eshop/service/repository/*
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>

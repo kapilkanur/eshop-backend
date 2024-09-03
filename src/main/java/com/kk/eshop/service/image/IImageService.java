@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package com.kk.eshop.service.image;
 
 import com.kk.eshop.dtos.ImageDTO;

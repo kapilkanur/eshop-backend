@@ -18,19 +18,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ImageService implements IImageService {
+public final class ImageService implements IImageService {
 
     private final ImageRepository imageRepository;
     private final IProductService productService;
 
     @Override
-    public Image getImageById(Long id) {
+    public Image getImageById(final Long id) {
         return imageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No Image found with the id " + id));
     }
 
     @Override
-    public void deleteImageById(Long id) {
+    public void deleteImageById(final Long id) {
         imageRepository.findById(id).ifPresentOrElse(imageRepository::delete,
                 () -> {
                     throw new ResourceNotFoundException("No Image found with the id " + id);
@@ -38,7 +38,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public List<ImageDTO> saveImages(List<MultipartFile> files, Long productId) {
+    public List<ImageDTO> saveImages(final List<MultipartFile> files, final Long productId) {
         Product product = productService.getProductById(productId);
         List<ImageDTO> savedImageDtos = new ArrayList<>();
         for (MultipartFile file: files) {
@@ -69,7 +69,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public void updateImage(MultipartFile file, Long imageId) {
+    public void updateImage(final MultipartFile file, final Long imageId) {
         Image image = this.getImageById(imageId);
         try {
             image.setFileName(file.getOriginalFilename());

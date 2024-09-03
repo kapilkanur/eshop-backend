@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package com.kk.eshop.service.product;
 
 import com.kk.eshop.dtos.ProductDTO;

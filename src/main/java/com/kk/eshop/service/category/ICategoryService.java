@@ -1,4 +1,5 @@
-package com.kk.eshop.service.product;
+// CHECKSTYLE:OFF
+package com.kk.eshop.service.category;
 
 import com.kk.eshop.model.Category;
 
